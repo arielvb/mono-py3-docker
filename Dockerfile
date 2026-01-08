@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.13-slim-bookworm
 # https://github.com/docker-library/python/blob/40bd50cfcf3551fc506b45e47003db9c52c5fec7/3.9/slim-buster/Dockerfile
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE="1"
@@ -16,7 +16,7 @@ RUN apt-get update \
   curl -O https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
     apt-get update && apt-get install -y apt-utils apt-transport-https && apt-get update && \
-    apt-get install dotnet-sdk-8.0 dotnet-runtime-8.0 -y && dotnet tool install -g csharpier --version 1.1.2 \
+    apt-get install dotnet-sdk-8.0 dotnet-runtime-8.0 -y && dotnet tool install -g csharpier --version 1.2.5 \
     && apt-get purge -y --auto-remove apt-utils apt-transport-https \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
