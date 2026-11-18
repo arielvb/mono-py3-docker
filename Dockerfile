@@ -1,9 +1,9 @@
 # Builder stage for .NET tools
-FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS dotnet-builder
-RUN dotnet tool install -g csharpier --version 1.2.6
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS dotnet-builder
+RUN dotnet tool install -g csharpier --version 1.4.0
 
 # Final stage
-FROM python:3.12-slim-bookworm
+FROM python:3.14-slim-bookworm
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE="1" \
     DOTNET_CLI_TELEMETRY_OPTOUT="true" \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
     && apt-get update && apt-get install -y --no-install-recommends \
-    dotnet-sdk-8.0 \
+    dotnet-sdk-10.0 \
     && pip install --no-cache-dir lxml pre-commit \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
